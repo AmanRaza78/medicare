@@ -134,7 +134,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\sanjana madiwalar\\Desktop\\medicare\\medicare\\generated\\prisma",
+      "value": "D:\\hospitalappiontment\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -148,7 +148,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\sanjana madiwalar\\Desktop\\medicare\\medicare\\prisma\\schema.prisma",
+    "sourceFilePath": "D:\\hospitalappiontment\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
