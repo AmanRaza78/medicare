@@ -1,4 +1,3 @@
-import { Leaf } from "lucide-react";
 import {
   Card,
   CardContent,
