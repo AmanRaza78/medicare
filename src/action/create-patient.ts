@@ -3,7 +3,7 @@
 import { prisma } from "@/lib/db";
 import { z } from "zod";
 
-type PatientState = {
+export type PatientState = {
   status: "success" | "error" | undefined;
   errors?: {
     [key: string]: string[];
@@ -34,7 +34,7 @@ const patientSchema = z.object({
   userId: z.string().nonempty({ message: "User Id is required" }),
 });
 
-async function createPatient(formData: FormData) {
+export async function createPatient(initialState:any, formData: FormData) {
   try {
     const parsedData = patientSchema.safeParse({
       fullName: formData.get("fullName"),

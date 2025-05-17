@@ -1,4 +1,3 @@
-import { Leaf } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -19,8 +18,25 @@ import {
 } from "../ui/select";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
+import { useActionState, useEffect } from "react";
+import { createPatient, PatientState } from "@/action/create-patient";
 
 export default function OnboardingForm() {
+  const initialState: PatientState = { status: undefined, message: "" };
+  const [state, formAction, isPending] = useActionState(
+    createPatient,
+    initialState
+  );
+
+  useEffect(()=>{
+    if(state.status === "success"){
+      alert(state.message)
+    }
+    if(state.status === "error"){
+      alert(state.message)
+    }
+  }, [state])
+
   return (
     <Card className="flex flex-col w-full p-4 shadow-lg mt-4 h-[600px] overflow-y-scroll">
       <CardHeader>
@@ -28,7 +44,7 @@ export default function OnboardingForm() {
         <CardDescription>Note: All fields are mandatory</CardDescription>
       </CardHeader>
       <CardContent>
-        <form className="flex flex-col gap-y-4">
+        <form className="flex flex-col gap-y-4" action={formAction}>
           <div className="flex flex-col gap-y-2">
             <Label
               htmlFor="fullName"
@@ -42,6 +58,11 @@ export default function OnboardingForm() {
               placeholder="John Doe"
               type="text"
             />
+            {
+              state?.errors?.["fullName"]?.[0] && (
+                <p className="text-destructive">{state?.errors?.["fullName"]?.[0]}</p>
+              )
+            }
           </div>
 
           <div className="flex flex-col gap-y-2">
@@ -108,7 +129,6 @@ export default function OnboardingForm() {
             />
           </div>
 
-
           <div className="flex flex-col gap-y-2">
             <Label
               htmlFor="emergencyContactName"
@@ -123,7 +143,6 @@ export default function OnboardingForm() {
               type="text"
             />
           </div>
-
 
           <div className="flex flex-col gap-y-2">
             <Label
@@ -141,7 +160,15 @@ export default function OnboardingForm() {
           </div>
 
           <div className="flex flex-col gap-y-2">
-            <Button type="submit" className="w-full">Submit</Button>
+            {isPending ? (
+              <Button disabled className="w-full">
+                Submitting...
+              </Button>
+            ) : (
+              <Button type="submit" className="w-full">
+                Submit
+              </Button>
+            )}
           </div>
         </form>
       </CardContent>
